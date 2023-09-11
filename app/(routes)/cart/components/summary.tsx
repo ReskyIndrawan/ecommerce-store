@@ -10,20 +10,20 @@ import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 
 const Summary = () => {
-  const searchPrams = useSearchParams();
+  const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
 
   useEffect(() => {
-    if (searchPrams.get("success")) {
+    if (searchParams.get("success")) {
       toast.success("Payment completed.");
       removeAll();
     }
 
-    if (searchPrams.get("canceled")) {
+    if (searchParams.get("canceled")) {
       toast.error("Order canceled.");
     }
-  }, []);
+  }, [searchParams, removeAll]);
 
   const totalPrice = items.reduce((total, item) => {
     return total + Number(item.price);
